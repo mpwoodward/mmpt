@@ -34,6 +34,7 @@ class Director(models.Model):
     
     class Meta:
         ordering = ['last_name', 'first_name', ]
+        unique_together = ('last_name', 'first_name')
 
 
 class Film(models.Model):
