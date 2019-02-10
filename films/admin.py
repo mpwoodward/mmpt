@@ -4,7 +4,7 @@ from .models import Category, Director, Distributor, Film
 
 class CategoryAdmin(admin.ModelAdmin):
     model = Category
-    search_fields = ['name', ]
+    search_fields = ['category', ]
 
 
 class DirectorAdmin(admin.ModelAdmin):
