@@ -37,6 +37,18 @@ class Director(models.Model):
         unique_together = ('last_name', 'first_name')
 
 
+class Suggestor(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100, db_index=True)
+    email = models.EmailField(unique=True, db_index=True)
+
+    def __str__(self):
+        return '{} {} ({})'.format(self.first_name, self.last_name, self.email)
+    
+    class Meta:
+        ordering = ['last_name', 'first_name', ]
+
+
 class Film(models.Model):
     title = models.CharField(max_length=500, db_index=True)
     trailer_url = models.URLField(blank=True, null=True, verbose_name='Trailer URL')
@@ -47,6 +59,7 @@ class Film(models.Model):
     running_time = models.PositiveSmallIntegerField(blank=True, null=True, help_text='Running time in minutes')
     directors = models.ManyToManyField(Director, blank=True)
     categories = models.ManyToManyField(Category, blank=True)
+    suggested_by = models.ForeignKey(Suggestor, blank=True, null=True, on_delete=models.SET_NULL)
     distributor = models.ForeignKey(Distributor, blank=True, null=True, on_delete=models.SET_NULL)
     license_fees = models.PositiveSmallIntegerField(blank=True, null=True)
     licensing_notes = RichTextField(blank=True, null=True)
