@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Location, Organization, Panelist, Event
+from .models import Event, Location, Organization, Panelist, PanelistExpertise
 
 
 class LocationAdmin(admin.ModelAdmin):
@@ -13,10 +13,18 @@ class OrganizationAdmin(admin.ModelAdmin):
     list_display = ['name', 'website', ]
 
 
+class PanelistExpertiseAdmin(admin.ModelAdmin):
+    model = PanelistExpertise
+    list_display = ['expertise', ]
+    search_fields = ['expertise', ]
+
+
 class PanelistAdmin(admin.ModelAdmin):
     model = Panelist
     list_display = ['last_name', 'first_name', 'title', 'organization', 'email', 'phone', ]
+    list_filter = ['expertise', ]
     search_fields = ['last_name', ]
+    autocomplete_fields = ['expertise', ]
 
 
 class EventAdmin(admin.ModelAdmin):
@@ -27,5 +35,6 @@ class EventAdmin(admin.ModelAdmin):
 
 admin.site.register(Location, LocationAdmin)
 admin.site.register(Organization, OrganizationAdmin)
+admin.site.register(PanelistExpertise, PanelistExpertiseAdmin)
 admin.site.register(Panelist, PanelistAdmin)
 admin.site.register(Event, EventAdmin)

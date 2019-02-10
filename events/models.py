@@ -33,6 +33,16 @@ class Organization(models.Model):
         ordering = ['name', ]
 
 
+class PanelistExpertise(models.Model):
+    expertise = models.CharField(max_length=250, unique=True, db_index=True)
+
+    def __str__(self):
+        return self.expertise
+    
+    class Meta:
+        verbose_name_plural = 'Panelist Expertise'
+    
+
 class Panelist(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100, db_index=True)
@@ -40,6 +50,7 @@ class Panelist(models.Model):
     phone = models.CharField(max_length=20, blank=True, null=True)
     title = models.CharField(max_length=250, blank=True, null=True)
     organization = models.ForeignKey(Organization, blank=True, null=True, on_delete=models.SET_NULL)
+    expertise = models.ManyToManyField(PanelistExpertise, blank=True, db_index=True)
     notes = RichTextField(blank=True, null=True)
 
     def __str__(self):
