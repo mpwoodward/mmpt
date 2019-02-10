@@ -11,6 +11,7 @@ class LocationAdmin(admin.ModelAdmin):
 class OrganizationAdmin(admin.ModelAdmin):
     model = Organization
     list_display = ['name', 'website', ]
+    search_fields = ['name', ]
 
 
 class PanelistExpertiseAdmin(admin.ModelAdmin):
@@ -24,13 +25,13 @@ class PanelistAdmin(admin.ModelAdmin):
     list_display = ['last_name', 'first_name', 'title', 'organization', 'email', 'phone', ]
     list_filter = ['expertise', ]
     search_fields = ['last_name', ]
-    autocomplete_fields = ['expertise', ]
+    autocomplete_fields = ['expertise', 'organization', ]
 
 
 class EventAdmin(admin.ModelAdmin):
     model = Event
     list_display = ['event_dt', 'name', 'location', 'attendance', 'donations', ]
-    autocomplete_fields = ['location', 'panelists', ]
+    autocomplete_fields = ['film', 'location', 'panelists', ]
 
 
 admin.site.register(Location, LocationAdmin)
