@@ -1,5 +1,6 @@
 from django.db import models
 
+from ckeditor.fields import RichTextField
 
 class Category(models.Model):
     category = models.CharField(max_length=250, unique=True, db_index=True)
@@ -15,7 +16,7 @@ class Category(models.Model):
 class Distributor(models.Model):
     name = models.CharField(max_length=250, unique=True, db_index=True)
     website = models.URLField(blank=True, null=True)
-    notes = models.TextField(blank=True, null=True)
+    notes = RichTextField(blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -39,7 +40,7 @@ class Film(models.Model):
     title = models.CharField(max_length=500, db_index=True)
     trailer_url = models.URLField(blank=True, null=True, verbose_name='Trailer URL')
     website = models.URLField(blank=True, null=True, help_text="The film's website")
-    synopsis = models.TextField(blank=True, null=True)
+    synopsis = RichTextField(blank=True, null=True)
     poster_image = models.ImageField(blank=True, null=True)
     release_year = models.PositiveSmallIntegerField()
     running_time = models.PositiveSmallIntegerField(blank=True, null=True, help_text='Running time in minutes')
@@ -47,7 +48,7 @@ class Film(models.Model):
     categories = models.ManyToManyField(Category, blank=True)
     distributor = models.ForeignKey(Distributor, blank=True, null=True, on_delete=models.SET_NULL)
     license_fees = models.PositiveSmallIntegerField(blank=True, null=True)
-    licensing_notes = models.TextField(blank=True, null=True)
+    licensing_notes = RichTextField(blank=True, null=True)
 
     def __str__(self):
         return '{} ({})'.format(self.title, self.release_year)

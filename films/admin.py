@@ -5,16 +5,19 @@ from .models import Category, Director, Distributor, Film
 class DirectorAdmin(admin.ModelAdmin):
     model = Director
     list_display = ['last_name', 'first_name', ]
+    search_fields = ['last_name', ]
 
 
 class DistributorAdmin(admin.ModelAdmin):
     model = Distributor
     list_display = ['name', 'website', ]
+    search_fields = ['name', ]
 
 
 class FilmAdmin(admin.ModelAdmin):
     model = Film
     list_display = ['title', 'release_year', ]
+    autocomplete_fields = ['directors', 'distributor', ]
 
 
 admin.site.register(Category)

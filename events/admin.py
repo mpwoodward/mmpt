@@ -5,6 +5,7 @@ from .models import Location, Organization, Panelist, Event
 class LocationAdmin(admin.ModelAdmin):
     model = Location
     list_display = ['name', 'city', 'state', ]
+    search_fields = ['name', ]
 
 
 class OrganizationAdmin(admin.ModelAdmin):
@@ -15,11 +16,13 @@ class OrganizationAdmin(admin.ModelAdmin):
 class PanelistAdmin(admin.ModelAdmin):
     model = Panelist
     list_display = ['last_name', 'first_name', 'title', 'organization', 'email', 'phone', ]
+    search_fields = ['last_name', ]
 
 
 class EventAdmin(admin.ModelAdmin):
     model = Event
     list_display = ['event_dt', 'name', 'location', 'attendance', 'donations', ]
+    autocomplete_fields = ['location', 'panelists', ]
 
 
 admin.site.register(Location, LocationAdmin)
