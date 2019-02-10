@@ -56,3 +56,4 @@ class Film(models.Model):
     
     class Meta:
         ordering = ['title', '-release_year', ]
+        unique_together = ('title', 'release_year')
