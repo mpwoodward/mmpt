@@ -30,7 +30,7 @@ class Director(models.Model):
     last_name = models.CharField(max_length=100)
 
     def __str__(self):
-        return '{}, {}'.format(self.last_name, self.first_name) if self.last_name and self.first_name else self.last_name
+        return self.first_name + ' ' + self.last_name if self.first_name and self.last_name else self.last_name
     
     class Meta:
         ordering = ['last_name', 'first_name', ]
@@ -41,12 +41,24 @@ class Suggestor(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100, db_index=True)
     email = models.EmailField(unique=True, db_index=True)
+    notes = RichTextField(blank=True, null=True)
 
     def __str__(self):
-        return '{} {} ({})'.format(self.first_name, self.last_name, self.email)
+        return '{} {}'.format(self.first_name, self.last_name)
     
     class Meta:
         ordering = ['last_name', 'first_name', ]
+
+
+class Status(models.Model):
+    status = models.CharField(max_length=100, unique=True, db_index=True)
+    ordering = models.PositiveSmallIntegerField(unique=True, db_index=True)
+
+    def __str__(self):
+        return self.status
+    
+    class Meta:
+        ordering = ['ordering', ]
 
 
 class Film(models.Model):
@@ -59,7 +71,9 @@ class Film(models.Model):
     running_time = models.PositiveSmallIntegerField(blank=True, null=True, help_text='Running time in minutes')
     directors = models.ManyToManyField(Director, blank=True)
     categories = models.ManyToManyField(Category, blank=True)
-    suggested_by = models.ForeignKey(Suggestor, blank=True, null=True, on_delete=models.SET_NULL)
+    status = models.ForeignKey(Status, blank=True, null=True, on_delete=models.SET_NULL)
+    suggested_by = models.ManyToManyField(Suggestor, blank=True)
+    notes = RichTextField(blank=True, null=True, help_text='Any relevant discussion notes or concerns about the film')
     distributor = models.ForeignKey(Distributor, blank=True, null=True, on_delete=models.SET_NULL)
     license_fees = models.PositiveSmallIntegerField(blank=True, null=True)
     licensing_notes = RichTextField(blank=True, null=True)

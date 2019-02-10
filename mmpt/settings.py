@@ -132,4 +132,6 @@ USE_TZ = True
 STATIC_ROOT = os.path.abspath(os.path.join(root, 'static'))
 STATIC_URL = '/static/'
 
+ADMIN_SITE_HEADER = 'Meaningful Movies Port Townsend'
+
 AUTH_USER_MODEL = 'security.User'
