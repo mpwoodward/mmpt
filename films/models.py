@@ -1,6 +1,8 @@
 from django.db import models
 
 from ckeditor.fields import RichTextField
+from filer.fields.file import FilerFileField
+from filer.fields.image import FilerImageField
 
 class Category(models.Model):
     category = models.CharField(max_length=250, unique=True, db_index=True)
@@ -66,7 +68,7 @@ class Film(models.Model):
     trailer_url = models.URLField(blank=True, null=True, verbose_name='Trailer URL')
     website = models.URLField(blank=True, null=True, help_text="The film's website")
     synopsis = RichTextField(blank=True, null=True)
-    poster_image = models.ImageField(blank=True, null=True)
+    poster_image = FilerImageField(blank=True, null=True, on_delete=models.SET_NULL)
     release_year = models.PositiveSmallIntegerField()
     running_time = models.PositiveSmallIntegerField(blank=True, null=True, help_text='Running time in minutes')
     directors = models.ManyToManyField(Director, blank=True)

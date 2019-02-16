@@ -47,6 +47,10 @@ INSTALLED_APPS = [
 
     # third party
     'ckeditor',
+    'easy_thumbnails',
+    'filer',
+    'mptt',
+    'storages',
 
     # project
     'events',
@@ -132,6 +136,29 @@ USE_TZ = True
 STATIC_ROOT = os.path.abspath(os.path.join(root, 'static'))
 STATIC_URL = '/static/'
 
-ADMIN_SITE_HEADER = 'Meaningful Movies Port Townsend'
+# Media files
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_CUSTOM_DOMAIN = env('AWS_S3_CUSTOM_DOMAIN')
+AWS_DEFAULT_ACL = env('AWS_DEFAULT_ACL')
+MEDIAFILES_LOCATION = 'media'
+MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, MEDIAFILES_LOCATION))
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+THUMBMAIL_DEFAULT_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+MEDIA_URL = 'https://{}/{}/'.format(AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+
+# admin/security stuff
+ADMIN_SITE_HEADER = env('ADMIN_SITE_HEADER')
 
 AUTH_USER_MODEL = 'security.User'
+
+# easy thumbnails
+THUMBNAIL_HIGH_RESOLUTION = True
+
+THUMBNAIL_PROCESSORS = (
+    'easy_thumbnails.processors.colorspace',
+    'easy_thumbnails.processors.autocrop',
+    'filer.thumbnail_processors.scale_and_crop_with_subject_location',
+    'easy_thumbnails.processors.filters',
+)

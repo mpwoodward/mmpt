@@ -1,9 +1,11 @@
+from django.conf import settings
 from django.db import models
 
 from ckeditor.fields import RichTextField
 from localflavor.us.models import USStateField, USZipCodeField
 
 from films.models import Film
+from security.models import User
 
 
 class Location(models.Model):
@@ -51,6 +53,8 @@ class Panelist(models.Model):
     title = models.CharField(max_length=250, blank=True, null=True)
     organization = models.ForeignKey(Organization, blank=True, null=True, on_delete=models.SET_NULL)
     expertise = models.ManyToManyField(PanelistExpertise, blank=True, db_index=True)
+    contact = models.ForeignKey(User, blank=True, null=True, 
+                                    on_delete=models.SET_NULL, help_text='{} Contact'.format(settings.ADMIN_SITE_HEADER))
     notes = RichTextField(blank=True, null=True)
 
     def __str__(self):
