@@ -43,6 +43,7 @@ class Suggestor(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100, db_index=True)
     email = models.EmailField(unique=True, db_index=True)
+    phone = models.CharField(max_length=20, blank=True, null=True)
     notes = RichTextField(blank=True, null=True)
 
     def __str__(self):
