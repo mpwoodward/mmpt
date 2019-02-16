@@ -58,7 +58,7 @@ class Panelist(models.Model):
     notes = RichTextField(blank=True, null=True)
 
     def __str__(self):
-        return '{}, {}'.format(self.last_name, self.first_name)
+        return '{} {}'.format(self.first_name, self.last_name)
     
     class Meta:
         ordering = ['last_name', 'first_name', ]
