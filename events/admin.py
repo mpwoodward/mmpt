@@ -22,10 +22,10 @@ class PanelistExpertiseAdmin(admin.ModelAdmin):
 
 class PanelistAdmin(admin.ModelAdmin):
     model = Panelist
-    list_display = ['last_name', 'first_name', 'title', 'organization', 'email', 'phone', ]
+    list_display = ['last_name', 'first_name', 'title', 'organization', 'email', 'phone', 'contact', ]
     list_filter = ['expertise', ]
     search_fields = ['last_name', ]
-    autocomplete_fields = ['expertise', 'organization', ]
+    autocomplete_fields = ['expertise', 'organization', 'contact', ]
 
 
 class EventAdmin(admin.ModelAdmin):
