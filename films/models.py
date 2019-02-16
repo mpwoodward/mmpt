@@ -60,6 +60,7 @@ class Status(models.Model):
         return self.status
     
     class Meta:
+        verbose_name_plural = 'Statuses'
         ordering = ['ordering', ]
 
 
