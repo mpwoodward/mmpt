@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  db:
+    image: mariadb
+    environment:
+      MYSQL_DATABASE: 'mmpt'
+      MYSQL_USER: 'mmpt'
+      MYSQL_PASSWORD: 'mmpt'
+      MYSQL_ROOT_PASSWORD: 'mmpt'
+  web:
+    build: .
+    command: python /code/manage.py runserver 0.0.0.0:8000
+    environment:
+      ENV_FILE: .env
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
