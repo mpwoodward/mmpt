@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'easy_thumbnails',
     'filer',
+    'import_export',
     'mptt',
     'storages',
 

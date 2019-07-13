@@ -1,4 +1,8 @@
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
+
 from django.contrib import admin
+
 from .models import Event, Location, Organization, Panelist, PanelistExpertise
 
 
@@ -20,8 +24,14 @@ class PanelistExpertiseAdmin(admin.ModelAdmin):
     search_fields = ['expertise', ]
 
 
-class PanelistAdmin(admin.ModelAdmin):
+class PanelistResource(resources.ModelResource):
+    class Meta:
+        model = Panelist
+
+
+class PanelistAdmin(ImportExportModelAdmin):
     model = Panelist
+    resource_class = PanelistResource
     list_display = ['last_name', 'first_name', 'title', 'organization', 'email', 'phone', 'contact', ]
     list_filter = ['expertise', ]
     search_fields = ['last_name', ]
