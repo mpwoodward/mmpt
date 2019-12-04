@@ -1,5 +1,5 @@
 boto3==1.9.188
-django==2.2.3
+django==2.2.8
 django-ckeditor==5.7.1
 django-environ==0.4.5
 django-filer==1.5.0
